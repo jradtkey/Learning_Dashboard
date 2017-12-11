@@ -1,5 +1,5 @@
 {
-  "name": "Learning_Platform", 
+  "name": "Learning_Platform",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,6 +12,6 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
-   "mongoose": "^4.12.1"
+    "mongoose": "^4.12.1"
   }
 }
