@@ -1,0 +1,129 @@
+<div class="navbar">
+  <div class="row">
+    <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Antu_transmission-tray.svg/2000px-Antu_transmission-tray.svg.png" alt="">
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3">
+      <h2>Company Name</h2>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h1>Welcome {{user.first_name}}</h1>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-9 col-lg-9">
+          <div class="profile">
+            <table class="table">
+              <tbody>
+                <br>
+                <tr>
+                  <td>You:</td>
+                  <td style="font-size: 1.35em;">{{user.first_name}} {{user.last_name}}</td>
+                </tr>
+                <tr>
+                  <td>Email:</td>
+                  <td style="font-size: 1.35em;">{{user.email}}</td>
+                </tr>
+                <tr>
+                  <td>Phone Number:</td>
+                  <td style="font-size: 1.35em;">{{user.phone_number}}</td>
+                </tr>
+                <tr>
+                  <td>Students:</td>
+                  <td style="font-size: 1.35em;"><a (click)="addStudent()">Add New Student</a></td>
+                </tr>
+                <tr *ngFor="let person of user_students">
+                  <td style="font-size: 1.35em; border: none;" *ngIf="person._user == userID"></td>
+                  <td style="font-size: 1.35em; border: none;" *ngIf="person._user == userID"><a (click)="showStudent(person._id)">{{person.first_name}}</a></td>
+                </tr>
+                <tr>
+                  <td>Instructor(s):</td>
+                  <td></td>
+                </tr>
+                <tr *ngFor="let person of instructors">
+                  <td style="font-size: 1.35em; border: none;"></td>
+                  <td style="font-size: 1.35em; border: none;"><a>{{person.first_name}}</a></td>
+                </tr>
+                <tr>
+                  <td>Upcoming Lessons:</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="new">
+              <tbody>
+                <tr>
+                  <td class="calendar_head"> Sunday </td>
+                  <td class="calendar_body">Sally Student @ 4pm</td>
+                </tr>
+                <tr>
+                  <td class="calendar_head"> Monday </td>
+                  <td class="calendar_body"></td>
+                </tr>
+                <tr>
+                  <td class="calendar_head"> Tuesday </td>
+                  <td class="calendar_body"></td>
+                </tr>
+                <tr>
+                  <td class="calendar_head"> Wednesday </td>
+                  <td class="calendar_body">Sally Student @ 4pm</td>
+                </tr>
+                <tr>
+                  <td class="calendar_head"> Thursday </td>
+                  <td class="calendar_body">Sally Student @ 4pm</td>
+                </tr>
+                <tr>
+                  <td class="calendar_head"> Friday </td>
+                  <td class="calendar_body"></td>
+                </tr>
+                <tr>
+                  <td class="calendar_head"> Saturday </td>
+                  <td class="calendar_body">Sally Student @ 10am</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+</div>
+
+<div id="myModal" class="modal" *ngIf="modal == true">
+
+
+    <div class="modal-content">
+
+        <span class="close" (click)="close()">&times;</span>
+        <form name="formData" #formData="ngForm" (submit)="onSubmit(formData)">
+
+          <h3>New Student</h3><br>
+          <input type="text" placeholder="first name" name='first_name' [(ngModel)]='student.first_name' #first_name='ngModel' required><br>
+          <span *ngIf="!first_name.valid && first_name.dirty">First name required</span>
+          <br>
+
+          <input type="text" placeholder="last name" name='last_name' [(ngModel)]='student.last_name' #last_name='ngModel' required><br>
+          <span *ngIf="!last_name.valid && last_name.dirty">Last name required</span>
+          <br>
+
+          <input type="date" name='birthdate' [(ngModel)]='student.birthdate' #birthdate='ngModel' required><br>
+          <span *ngIf="!birthdate.valid && birthdate.dirty">Birthdate required</span>
+
+          <br><br>
+
+          <span class="input-group-btn">
+            <button type="submit" [disabled]="!(formData.valid)">Add Student</button>
+          </span>
+
+        </form>
+    </div>
+</div>

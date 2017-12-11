@@ -1,0 +1,79 @@
+<div class="navbar">
+  <div class="row">
+    <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Antu_transmission-tray.svg/2000px-Antu_transmission-tray.svg.png" alt="">
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3">
+      <h2>Company Name</h2>
+    </div>
+  </div>
+</div>
+
+<!-- {{users | json}} -->
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7" id="background">
+      <div class="row">
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+          <h2>Students</h2>
+          <div id="names">
+            <div id="students">
+            <div *ngFor="let person of students">
+              <ul *ngFor="let student of instructor.students">
+                <a *ngIf="student == person._id" (click)="viewStudent(person._id)">{{person.first_name}} {{person.last_name}}</a>
+              </ul>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+          <h2>Contact</h2>
+          <div id="names">
+            <div *ngFor="let user of users">
+              <div *ngFor="let student of students">
+                <ul *ngFor="let swimmer of student.instructors">
+                  <p *ngIf="swimmer == instructor._id && student._user == user._id">{{user.first_name}} - {{user.phone_number}}</p>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 5%;">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <button id="add" (click)="addStudentModal()">Add Student</button>
+          <button id="remove" (click)="removeStudentModal()">Remove Student</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="myModal" class="modal" *ngIf="modalAdd == true">
+
+    <div class="modal-content">
+      <span class="close" (click)="closeAdd()">&times;</span>
+
+
+        <select id="dropdown" #selectedStudent>
+          <option disabled>Select Student</option>
+          <option *ngFor="let person of students" [value]="person._id">{{person.first_name}} {{person.last_name}}</option>
+        </select><br>
+        <span *ngIf="selectStudent == true" style="color: red;">Please select a student<br></span>
+        <button id="add2" (click)="add_Student(selectedStudent.value)">Add Student</button>
+
+    </div>
+</div>
+
+<div id="myModal" class="modal" *ngIf="modalRemove == true">
+
+
+    <div class="modal-content">
+      <span class="close" (click)="closeRemove()">&times;</span>
+      <h1>Hello</h1>
+
+    </div>
+</div>

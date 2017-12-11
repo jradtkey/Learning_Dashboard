@@ -1,0 +1,134 @@
+<div class="navbar">
+  <div class="row">
+    <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Antu_transmission-tray.svg/2000px-Antu_transmission-tray.svg.png" alt="">
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3">
+      <h2>Company Name</h2>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="text-center" id="nav">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <a (click)="showUsers()">Users</a> -
+        <a (click)="showStudents()">Students</a> -
+        <a (click)="showInstructors()">Instructors</a>
+      </div>
+    </div>
+  </div>
+
+
+<div *ngIf="show_users == true">
+  <h2>Users</h2>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone Number</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let person of users">
+          <tr *ngIf="person.credential == 'user'">
+            <td >{{person.first_name}}</td>
+            <td>{{person.last_name}}</td>
+            <td>{{person.email}}</td>
+            <td>{{person.phone_number}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="show_students == true">
+  <h2>Students</h2>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Birthdate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students">
+            <td>{{student.first_name}}</td>
+            <td>{{student.last_name}}</td>
+            <td>{{student.birthdate}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="show_instructors == true">
+  <h2>Instructors</h2>
+  <a (click)="addInstructor()">Add Instructor</a><br><br>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Birthdate</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let person of users">
+          <tr *ngIf="person.credential == 'instructor'">
+            <td>{{person.first_name}}</td>
+            <td>{{person.last_name}}</td>
+            <td>{{person.email}}</td>
+            <td>{{person.phone_number}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div id="myModal" class="modal" *ngIf="modal == true">
+
+
+    <div class="modal-content">
+
+        <span class="close" (click)="close()">&times;</span>
+        <form name="formData" #formData="ngForm" (submit)="onSubmit(formData)">
+          <h3>New Instructor</h3><br>
+          <input type="text" placeholder="first name" name='first_name' [(ngModel)]='user.first_name' #first_name='ngModel' required><br>
+          <span *ngIf="!first_name.valid && first_name.dirty">First name required</span>
+          <br>
+
+          <input type="text" placeholder="last name" name='last_name' [(ngModel)]='user.last_name' #last_name='ngModel' required><br>
+          <span *ngIf="!last_name.valid && last_name.dirty">Last name required</span>
+          <br>
+
+          <input type="text" placeholder="email" name='email' [(ngModel)]='user.email' #email='ngModel' pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$' required><br>
+          <span *ngIf="!email.valid && email.dirty">Please enter valid email</span>
+          <br>
+
+          <input [textMask]="{mask: mask}" type="text" placeholder="+1 (123) 555-2345" name='phone_number' [(ngModel)]='user.phone_number' #phone_number='ngModel' required><br>
+          <span *ngIf="!phone_number.valid && phone_number.dirty">Phone number required</span>
+
+          <br><br>
+
+          <span class="input-group-btn">
+            <button type="submit" [disabled]="!(formData.valid)">Add Instructor</button>
+          </span>
+
+        </form>
+    </div>
+</div>
