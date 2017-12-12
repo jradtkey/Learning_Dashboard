@@ -13,6 +13,11 @@ import { InstructorStudentDashboardComponent } from './instructor-student-dashbo
 const routes: Routes = [
 
   {
+    path : '/',
+    component: LoginRegistrationComponent,
+  },
+
+  {
     path : '',
     component: LoginRegistrationComponent,
   },
@@ -20,7 +25,6 @@ const routes: Routes = [
   {
     path: 'user_dashboard',
     component: UserDashboardComponent
-    // redirectTo: 'studentDashboard'
   },
 
   {
