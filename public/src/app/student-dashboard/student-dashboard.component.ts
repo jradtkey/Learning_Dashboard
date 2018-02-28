@@ -97,7 +97,9 @@ export class StudentDashboardComponent implements OnInit {
   close(){
     this.skill_id = "";
     this.modal = false;
-    console.log(this.skill_id)
+    console.log(this.sticker_urls);
+    this.sticker_urls = [];
+    console.log(this.sticker_urls)
   }
 
   countProgress() {
