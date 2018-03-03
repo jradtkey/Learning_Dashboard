@@ -23,7 +23,6 @@ export class StudentDashboardComponent implements OnInit {
 
   ngOnInit() {
     if(this.service.studentID === undefined){
-      console.log("inside component")
       this.fetchStudent();
     }
     else if (this.service.studentID !== undefined){
@@ -32,7 +31,6 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   fetchStudentByID(){
-    console.log(this.service.studentID);
     this.service.fetchStudentByID(
       (res) => {
         this.current_student = res.json()['student'];
@@ -54,7 +52,6 @@ export class StudentDashboardComponent implements OnInit {
     this.service.fetch_user_by_id(
       (res) => {
         this.current_user = res.json()['user'];
-        console.log("Existing USER:", this.current_user[0])
         this.user = this.current_user[0];
       }
     )
@@ -62,44 +59,39 @@ export class StudentDashboardComponent implements OnInit {
 
   addSticker(data){
     this.modal = false;
-    console.log("giphy url:", data)
-    console.log("skill id:", this.skill_id)
     this.service.addSticker(data, this.skill_id,
       (res) => {
         console.log("callback", res.json()['student']);
         this.fetchStudentByID();
       }
     )
+    this.sticker_urls = [];
   }
 
   showStickers(data){
-    // this.promise = this.service.showStickers();
     this.service.showStickers().subscribe(
       data => {
         this.stickers = data;
         console.log("stickers", this.stickers)
         for(var i = 0; i < this.stickers.data.length; i++){
-          this.sticker_urls.push(this.stickers.data[i].featured_gif.images.original.url)
+          if(this.stickers.data[i].featured_gif.images.original.url != "https://media3.giphy.com/media/l378tlrm4W7Fzg8aA/giphy.gif"){
+            this.sticker_urls.push(this.stickers.data[i].featured_gif.images.original.url)
+          }
         }
-        console.log(this.sticker_urls)
       },
       error => {
         console.log("error")
       },
       () => {}
-    );
-    this.modal = true;
+    )
+    this.modal = true
     this.skill_id = data;
-    console.log(this.skill_id);
-    console.log("hello")
   }
 
   close(){
     this.skill_id = "";
     this.modal = false;
-    console.log(this.sticker_urls);
     this.sticker_urls = [];
-    console.log(this.sticker_urls)
   }
 
   countProgress() {
@@ -118,7 +110,6 @@ export class StudentDashboardComponent implements OnInit {
     if(this.progress == Infinity){
       this.progress = 0;
     }
-    console.log("total", total, "progress", progress, "total progress", this.progress)
   }
 
 }
